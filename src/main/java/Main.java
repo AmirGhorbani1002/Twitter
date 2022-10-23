@@ -3,15 +3,15 @@ import entity.like.Like;
 import entity.tweet.Tweet;
 import entity.user.User;
 import jakarta.persistence.EntityManager;
-import repository.Like.LikeRepositoryImpl;
-import repository.Tweet.TweetRepositoryImpl;
-import repository.user.UserRepositoryImpl;
-import service.Like.LikeService;
-import service.Like.LikeServiceImpl;
-import service.Tweet.TweetService;
-import service.Tweet.TweetServiceImpl;
+import repository.like.impl.LikeRepositoryImpl;
+import repository.tweet.impl.TweetRepositoryImpl;
+import repository.user.impl.UserRepositoryImpl;
+import service.like.LikeService;
+import service.like.impl.LikeServiceImpl;
+import service.tweet.TweetService;
+import service.tweet.impl.TweetServiceImpl;
 import service.user.UserService;
-import service.user.UserServiceImpl;
+import service.user.impl.UserServiceImpl;
 
 
 public class Main {

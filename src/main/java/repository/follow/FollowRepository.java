@@ -1,4 +1,4 @@
-package repository.followRepository;
+package repository.follow;
 
 import base.repository.BaseRepository;
 import entity.follow.Follow;

@@ -1,13 +1,14 @@
-package repository.Like;
+package repository.like.impl;
 
 import base.repository.impl.BaseRepositoryImpl;
 import entity.like.Like;
 import entity.tweet.Tweet;
 import jakarta.persistence.EntityManager;
+import repository.like.LikeRepository;
 
 import java.util.List;
 
-public class LikeRepositoryImpl extends BaseRepositoryImpl<Like> implements LikeRepository{
+public class LikeRepositoryImpl extends BaseRepositoryImpl<Like> implements LikeRepository {
     public LikeRepositoryImpl(EntityManager em) {
         super(em);
     }

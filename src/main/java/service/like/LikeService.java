@@ -1,11 +1,12 @@
-package repository.Like;
+package service.like;
 
-import base.repository.BaseRepository;
+import base.service.BaseService;
 import entity.like.Like;
 import entity.tweet.Tweet;
 
 import java.util.List;
 
-public interface LikeRepository extends BaseRepository<Like> {
+public interface LikeService extends BaseService<Like> {
     List<String> findLikedAccounts(Tweet tweet);
+
 }

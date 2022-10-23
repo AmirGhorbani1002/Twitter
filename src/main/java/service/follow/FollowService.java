@@ -1,4 +1,4 @@
-package service.Follow;
+package service.follow;
 
 import base.service.BaseService;
 import entity.follow.Follow;

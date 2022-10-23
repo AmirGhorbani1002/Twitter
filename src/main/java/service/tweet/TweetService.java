@@ -1,4 +1,4 @@
-package service.Tweet;
+package service.tweet;
 
 import base.service.BaseService;
 import entity.tweet.Tweet;

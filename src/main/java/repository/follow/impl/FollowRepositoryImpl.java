@@ -1,12 +1,13 @@
-package repository.followRepository;
+package repository.follow.impl;
 
 import base.repository.impl.BaseRepositoryImpl;
 import entity.follow.Follow;
 import jakarta.persistence.EntityManager;
+import repository.follow.FollowRepository;
 
 import java.util.List;
 
-public class FollowRepositoryImpl extends BaseRepositoryImpl<Follow> implements FollowRepository{
+public class FollowRepositoryImpl extends BaseRepositoryImpl<Follow> implements FollowRepository {
 
 
     public FollowRepositoryImpl(EntityManager em) {

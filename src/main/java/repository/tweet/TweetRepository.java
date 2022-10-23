@@ -1,4 +1,4 @@
-package repository.Tweet;
+package repository.tweet;
 
 import base.repository.BaseRepository;
 import entity.tweet.Tweet;
