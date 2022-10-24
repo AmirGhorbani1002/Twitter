@@ -5,7 +5,6 @@ import base.repository.BaseRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -18,15 +17,13 @@ public abstract class BaseRepositoryImpl<E extends BaseEntity> implements BaseRe
             this.em=em;
         }
         @Override
-        public E save(E e) {
+        public void save(E e) {
             em.persist(e);
-            return e;
         }
 
         @Override
-        public E update(E e) {
+        public void update(E e) {
             em.merge(e);
-            return e;
         }
 
         @Override

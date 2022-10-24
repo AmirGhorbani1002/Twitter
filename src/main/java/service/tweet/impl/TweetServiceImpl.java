@@ -5,9 +5,16 @@ import entity.tweet.Tweet;
 import repository.tweet.TweetRepository;
 import service.tweet.TweetService;
 
+import java.util.List;
+
 public class TweetServiceImpl extends BaseServiceImpl<Tweet, TweetRepository> implements TweetService {
 
     public TweetServiceImpl(TweetRepository repository) {
         super(repository);
+    }
+
+    @Override
+    public List<Tweet> findUserTweets(Long id) {
+        return repository.findUserTweets(id);
     }
 }

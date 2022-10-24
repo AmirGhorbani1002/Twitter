@@ -25,7 +25,6 @@ public class Like extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private Integer likeCount;
 
     public Like(Tweet tweet, User user) {
         this.tweet = tweet;

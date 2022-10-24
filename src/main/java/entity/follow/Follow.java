@@ -21,7 +21,5 @@ public class Follow extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "follower_id")
     private User follower;
-
-    private LocalDateTime dateTime;
     private Boolean isCloseFriend;
 }
