@@ -2,9 +2,12 @@ package repository.follow.impl;
 
 import base.repository.impl.BaseRepositoryImpl;
 import entity.follow.Follow;
+import entity.user.User;
+import entity.user.UserDTO;
 import jakarta.persistence.EntityManager;
 import repository.follow.FollowRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FollowRepositoryImpl extends BaseRepositoryImpl<Follow> implements FollowRepository {
@@ -20,16 +23,28 @@ public class FollowRepositoryImpl extends BaseRepositoryImpl<Follow> implements 
     }
 
     @Override
-    public List<String> showFollowers(Long id) {
-        return em.createQuery("select f.follower.username from Follow f where f.following.id = :id", String.class)
+    public List<UserDTO> showFollowers(Long id) {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        List<User> users = em.createQuery("select f.follower from Follow f where f.following.id = :id", User.class)
                 .setParameter("id", id)
                 .getResultList();
+        users.forEach(user -> {
+            UserDTO userDTO = new UserDTO(user.getFirstname(),user.getLastname(),user.getUsername());
+            userDTOS.add(userDTO);
+        });
+        return userDTOS;
     }
 
     @Override
-    public List<String> showFollowing(Long id) {
-        return em.createQuery("select f.following.username from Follow f where f.follower.id = :id", String.class)
+    public List<UserDTO> showFollowing(Long id) {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        List<User> users = em.createQuery("select f.follower from Follow f where f.follower.id = :id", User.class)
                 .setParameter("id", id)
                 .getResultList();
+        users.forEach(user -> {
+            UserDTO userDTO = new UserDTO(user.getFirstname(),user.getLastname(),user.getUsername());
+            userDTOS.add(userDTO);
+        });
+        return userDTOS;
     }
 }

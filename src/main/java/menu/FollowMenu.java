@@ -5,25 +5,20 @@ import entity.user.User;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class UserMenu {
+public class FollowMenu {
 
     private final Scanner scanner = new Scanner(System.in);
 
     public void showMenu(User user) {
         while (true) {
-            System.out.println("Welcome " + user.getUsername());
-            System.out.println("1- Tweet");
-            System.out.println("2- Follow");
-            System.out.println("3- User information");
+            System.out.println("1- Show my followers");
+            System.out.println("2- Show my following");
+            System.out.println("3- Search");
             System.out.println("4- Exit");
             System.out.print("Enter your command: ");
             String command = scanner.next();
             if (Objects.equals(command, "1")) {
-                TweetMenu tweetMenu = new TweetMenu();
-                tweetMenu.showMenu(user);
             } else if (Objects.equals(command, "2")) {
-                FollowMenu followMenu = new FollowMenu();
-                followMenu.showMenu(user);
             } else if (Objects.equals(command, "3")) {
 
             } else if ((Objects.equals(command, "4"))) {

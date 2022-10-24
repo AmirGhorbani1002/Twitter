@@ -15,6 +15,7 @@ public class TweetMenu {
             System.out.println("1- Add new tweet");
             System.out.println("2- Show my tweets");
             System.out.println("3- Show other tweets");
+            System.out.println("4- Exit");
             System.out.print("Enter your command: ");
             String command = scanner.next();
             if (Objects.equals(command, "1")) {

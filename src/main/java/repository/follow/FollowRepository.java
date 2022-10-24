@@ -2,12 +2,13 @@ package repository.follow;
 
 import base.repository.BaseRepository;
 import entity.follow.Follow;
+import entity.user.UserDTO;
 
 import java.util.List;
 
 public interface FollowRepository extends BaseRepository<Follow> {
-    List<String> showFollowers(Long id);
-    List<String> showFollowing(Long id);
+    List<UserDTO> showFollowers(Long id);
+    List<UserDTO> showFollowing(Long id);
 
 
 }

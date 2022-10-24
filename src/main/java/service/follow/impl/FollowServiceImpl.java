@@ -2,6 +2,7 @@ package service.follow.impl;
 
 import base.service.impl.BaseServiceImpl;
 import entity.follow.Follow;
+import entity.user.UserDTO;
 import repository.follow.FollowRepository;
 import service.follow.FollowService;
 
@@ -14,12 +15,12 @@ public class FollowServiceImpl extends BaseServiceImpl<Follow, FollowRepository>
 
 
     @Override
-    public List<String> showFollowers(Long id) {
+    public List<UserDTO> showFollowers(Long id) {
         return repository.showFollowers(id);
     }
 
     @Override
-    public List<String> showFollowing(Long id) {
+    public List<UserDTO> showFollowing(Long id) {
         return repository.showFollowing(id);
     }
 }
