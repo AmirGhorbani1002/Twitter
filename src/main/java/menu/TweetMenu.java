@@ -18,34 +18,45 @@ public class TweetMenu {
             System.out.print("Enter your command: ");
             String command = scanner.next();
             if (Objects.equals(command, "1")) {
-                System.out.print("Enter message: ");
-                scanner.nextLine();
-                String message = scanner.nextLine();
-                TweetOperations tweetOperations = new TweetOperations();
-                tweetOperations.add(user, message);
+                add(user);
             } else if (Objects.equals(command, "2")) {
-                TweetOperations tweetOperations = new TweetOperations();
-                tweetOperations.showUserTweets(user);
-                System.out.print("Enter tweet id or enter 0 for exit: ");
-                Long id = scanner.nextLong();
-                System.out.print("Edit or Delete? ");
-                String op = scanner.next();
-                if (op.equalsIgnoreCase("edit")) {
-                    System.out.print("Enter new message: ");
-                    scanner.nextLine();
-                    String message = scanner.nextLine();
-                    tweetOperations.edit(id, message);
-                } else if (op.equalsIgnoreCase("delete")) {
-                    tweetOperations.delete(id);
-                } else {
-                    System.out.println("Wrong operation.");
-                }
+                showMy(user);
             } else if ((Objects.equals(command, "3"))) {
+                TweetOperations tweetOperations = new TweetOperations();
+                tweetOperations.showOther(user);
+            } else if ((Objects.equals(command, "4"))) {
                 break;
-            } else {
+            }else {
                 System.out.println("Wrong command.");
             }
         }
+    }
+
+    private void showMy(User user) {
+        TweetOperations tweetOperations = new TweetOperations();
+        tweetOperations.showUser(user);
+        System.out.print("Enter tweet id or enter 0 for exit: ");
+        Long id = scanner.nextLong();
+        System.out.print("Edit or Delete? ");
+        String op = scanner.next();
+        if (op.equalsIgnoreCase("edit")) {
+            System.out.print("Enter new message: ");
+            scanner.nextLine();
+            String message = scanner.nextLine();
+            tweetOperations.edit(id, message);
+        } else if (op.equalsIgnoreCase("delete")) {
+            tweetOperations.delete(id);
+        } else {
+            System.out.println("Wrong operation.");
+        }
+    }
+
+    private void add(User user) {
+        System.out.print("Enter message: ");
+        scanner.nextLine();
+        String message = scanner.nextLine();
+        TweetOperations tweetOperations = new TweetOperations();
+        tweetOperations.add(user, message);
     }
 
 }

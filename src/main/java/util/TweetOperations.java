@@ -18,8 +18,8 @@ public class TweetOperations {
         tweetService.save(tweet);
     }
 
-    public void showUserTweets(User user) {
-        List<Tweet> tweets = tweetService.findUserTweets(user.getId());
+    public void showUser(User user) {
+        List<Tweet> tweets = tweetService.findUser(user.getId());
         tweets.forEach(tweet -> {
             System.out.println(tweet.getId() + "- message:  " + tweet.getMessage()
                     + " number of likes: " + tweet.getLikes().size());
@@ -37,6 +37,16 @@ public class TweetOperations {
     public void delete(Long id) {
         Tweet tweet = tweetService.findById(id);
         tweetService.delete(tweet);
+    }
+
+    public void showOther(User user) {
+        List<Tweet> tweets = tweetService.findOther(user.getId());
+        tweets.forEach(tweet -> {
+            System.out.println("Tweet by " + tweet.getUser().getUsername() + " with id " + tweet.getId() + "- message:  "
+                    + tweet.getMessage() + ". number of likes: " + tweet.getLikes().size());
+            tweet.getComments().forEach(comment -> System.out.println("comment: " + comment.getUser().getUsername()
+                    + " say: " + comment.getMessage()));
+        });
     }
 
 }

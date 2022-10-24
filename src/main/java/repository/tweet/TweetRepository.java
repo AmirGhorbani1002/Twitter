@@ -4,10 +4,11 @@ import base.repository.BaseRepository;
 import entity.tweet.Tweet;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TweetRepository extends BaseRepository<Tweet> {
 
-    List<Tweet> findUserTweets(Long id);
+    List<Tweet> findUser(Long id);
+
+    List<Tweet> findOther(Long id);
 
 }

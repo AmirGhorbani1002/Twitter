@@ -19,9 +19,17 @@ public class TweetRepositoryImpl extends BaseRepositoryImpl<Tweet> implements Tw
     }
 
     @Override
-    public List<Tweet> findUserTweets(Long id) {
+    public List<Tweet> findUser(Long id) {
         String jpql = """
                 select t from Tweet t where t.user.id = :id
+                """;
+        return em.createQuery(jpql, Tweet.class).setParameter("id", id).getResultList();
+    }
+
+    @Override
+    public List<Tweet> findOther(Long id) {
+        String jpql = """
+                select t from Tweet t where not t.user.id = :id order by t.createDateTime
                 """;
         return em.createQuery(jpql, Tweet.class).setParameter("id", id).getResultList();
     }
