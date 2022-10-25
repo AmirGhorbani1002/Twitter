@@ -6,6 +6,7 @@ import base.service.BaseService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public class BaseServiceImpl <E extends BaseEntity,R extends BaseRepository<E>>
         implements BaseService<E> {
@@ -40,7 +41,7 @@ public class BaseServiceImpl <E extends BaseEntity,R extends BaseRepository<E>>
     }
 
     @Override
-    public E findById(Long id) {
+    public Optional<E> findById(Long id) {
         return repository.findById(id);
     }
 

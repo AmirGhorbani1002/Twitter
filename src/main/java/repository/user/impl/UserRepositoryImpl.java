@@ -2,11 +2,14 @@ package repository.user.impl;
 
 import base.repository.impl.BaseRepositoryImpl;
 import entity.user.User;
+import entity.user.UserDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import repository.user.UserRepository;
 import util.Hibernate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements UserRepository {
@@ -38,5 +41,20 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
                 """;
         return Optional.ofNullable(Hibernate.getEntityManager().createQuery(jpql, User.class)
                 .setParameter("username", username).setParameter("password", password).getSingleResult());
+    }
+
+    @Override
+    public List<UserDTO> searchByUsername(String username) {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        String jpql = """
+                select u from User u where u.username like :username
+                """;
+        List<User> users = Hibernate.getEntityManager().createQuery(jpql, User.class)
+                .setParameter("username", "%" + username + "%").getResultList();
+        users.forEach(user -> {
+            UserDTO userDTO = new UserDTO(user.getId(), user.getFirstname(), user.getLastname(), user.getUsername());
+            userDTOS.add(userDTO);
+        });
+        return userDTOS;
     }
 }

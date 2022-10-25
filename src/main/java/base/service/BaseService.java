@@ -4,6 +4,7 @@ import base.entity.BaseEntity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public interface BaseService <E extends BaseEntity> {
     E save(E e);
@@ -12,7 +13,7 @@ public interface BaseService <E extends BaseEntity> {
 
     void delete(E e);
 
-    E findById(Long id);
+    Optional<E> findById(Long id);
 
     List<E> findAll();
 

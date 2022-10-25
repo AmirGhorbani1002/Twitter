@@ -2,11 +2,13 @@ package service.user.impl;
 
 import base.service.impl.BaseServiceImpl;
 import entity.user.User;
+import entity.user.UserDTO;
 import repository.user.UserRepository;
 import repository.user.impl.UserRepositoryImpl;
 import service.user.UserService;
 import util.Hibernate;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl extends BaseServiceImpl<User, UserRepository> implements UserService {
@@ -26,5 +28,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserRepository> imple
     @Override
     public Optional<User> findUser(String username, String password) {
         return userRepository.findUser(username, password);
+    }
+
+    @Override
+    public List<UserDTO> searchByUsername(String username) {
+        return userRepository.searchByUsername(username);
     }
 }

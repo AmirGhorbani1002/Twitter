@@ -7,6 +7,7 @@ import service.tweet.TweetService;
 import service.tweet.impl.TweetServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TweetOperations {
 
@@ -29,14 +30,16 @@ public class TweetOperations {
     }
 
     public void edit(Long id, String message) {
-        Tweet tweet = tweetService.findById(id);
-        tweet.setMessage(message);
-        tweetService.update(tweet);
+        Optional<Tweet> optionalTweet = tweetService.findById(id);
+        optionalTweet.ifPresent(tweet -> {
+            tweet.setMessage(message);
+            tweetService.update(tweet);
+        });
     }
 
     public void delete(Long id) {
-        Tweet tweet = tweetService.findById(id);
-        tweetService.delete(tweet);
+        Optional<Tweet> optionalTweet = tweetService.findById(id);
+        optionalTweet.ifPresent(tweetService::delete);
     }
 
     public void showOther(User user) {
