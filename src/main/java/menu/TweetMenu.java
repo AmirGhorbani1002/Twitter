@@ -3,6 +3,7 @@ package menu;
 import entity.tweet.Tweet;
 import entity.user.User;
 import util.TweetOperations;
+import util.Validation;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class TweetMenu {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final Validation validation = new Validation();
 
     public void showMenu(User user) {
         while (true) {
@@ -27,7 +29,7 @@ public class TweetMenu {
                 TweetOperations tweetOperations = new TweetOperations();
                 tweetOperations.showOther(user);
                 System.out.print("Enter id for select tweet( 0 for exit): ");
-                Long id = scanner.nextLong();
+                Long id = validation.validNumber(scanner.next());
                 if (id == 0) return;
                 Tweet tweet = tweetOperations.showTweet(id);
                 if (tweet == null) return;
@@ -48,7 +50,7 @@ public class TweetMenu {
                     }
                 } else if (workPlace.equalsIgnoreCase("comment")) {
                     System.out.print("Enter comment id: ");
-                    id = scanner.nextLong();
+                    id = validation.validNumber(scanner.next());
                     System.out.print("like or reply? ");
                     String work = scanner.next();
                     if (work.equalsIgnoreCase("like")) {

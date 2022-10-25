@@ -2,6 +2,7 @@ package menu;
 
 import entity.user.User;
 import util.FollowOperations;
+import util.Validation;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class FollowMenu {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final Validation validation = new Validation();
 
     public void showMenu(User user) {
         while (true) {
@@ -30,7 +32,7 @@ public class FollowMenu {
                 FollowOperations followOperations = new FollowOperations();
                 followOperations.searchByUsername(username);
                 System.out.println("Enter user id for follow or unfollow");
-                Long id = scanner.nextLong();
+                Long id = validation.validNumber(scanner.next());
                 followOperations.followOrUnfollow(user, id);
             } else if ((Objects.equals(command, "4"))) {
                 break;
