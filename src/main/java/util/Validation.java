@@ -40,4 +40,19 @@ public class Validation {
         userService.save(user);
     }
 
+    public Long validNumber(String number){
+        long value = 0;
+        try {
+            value = Long.parseLong(number);
+        }catch (Exception e){
+            System.out.println("Wrong number input.");
+            validNumber(scanner.next());
+        }
+        if(value < 0){
+            System.out.println("number cant be negative");
+            validNumber(scanner.next());
+        }
+        return value;
+    }
+
 }

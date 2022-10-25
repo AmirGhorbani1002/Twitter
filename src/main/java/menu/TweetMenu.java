@@ -1,5 +1,6 @@
 package menu;
 
+import entity.tweet.Tweet;
 import entity.user.User;
 import util.TweetOperations;
 
@@ -25,9 +26,47 @@ public class TweetMenu {
             } else if ((Objects.equals(command, "3"))) {
                 TweetOperations tweetOperations = new TweetOperations();
                 tweetOperations.showOther(user);
+                System.out.print("Enter id for select tweet( 0 for exit): ");
+                Long id = scanner.nextLong();
+                if (id == 0) return;
+                Tweet tweet = tweetOperations.showTweet(id);
+                if (tweet == null) return;
+                System.out.print("Work with tweet or comment/s ?");
+                String workPlace = scanner.next();
+                if (workPlace.equalsIgnoreCase("tweet")) {
+                    System.out.print("like(dislike if you like it) or comment? ");
+                    String work = scanner.next();
+                    if (work.equalsIgnoreCase("like")) {
+                        tweetOperations.likeForTweet(user, tweet);
+                    } else if (work.equalsIgnoreCase("comment")) {
+                        System.out.print("Enter message: ");
+                        scanner.nextLine();
+                        String message = scanner.nextLine();
+                        tweetOperations.commentForTweet(user, tweet, message);
+                    } else {
+                        System.out.println("Wrong work input.");
+                    }
+                } else if (workPlace.equalsIgnoreCase("comment")) {
+                    System.out.print("Enter comment id: ");
+                    id = scanner.nextLong();
+                    System.out.print("like or reply? ");
+                    String work = scanner.next();
+                    if (work.equalsIgnoreCase("like")) {
+                        tweetOperations.likeForComment(user, id);
+                    } else if (work.equalsIgnoreCase("reply")) {
+                        System.out.print("Enter message: ");
+                        scanner.nextLine();
+                        String message = scanner.nextLine();
+                        tweetOperations.replyForComment(user, id, message);
+                    } else {
+                        System.out.println("Wrong work input.");
+                    }
+                } else {
+
+                }
             } else if ((Objects.equals(command, "4"))) {
                 break;
-            }else {
+            } else {
                 System.out.println("Wrong command.");
             }
         }

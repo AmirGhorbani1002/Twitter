@@ -4,10 +4,7 @@ import base.entity.BaseEntity;
 import entity.comment.Comment;
 import entity.like.Like;
 import entity.user.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +22,7 @@ public class Tweet extends BaseEntity {
 
     @Column(length = 280)
     private String message;
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
     @ManyToOne
     private User user;
