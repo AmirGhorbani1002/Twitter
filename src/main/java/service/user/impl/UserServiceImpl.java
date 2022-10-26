@@ -22,7 +22,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserRepository> imple
 
     @Override
     public Optional<User> findUser(String username) {
-        return userRepository.findUser(username);
+        try {
+            return userRepository.findUser(username);
+        }catch (Exception e){
+            return Optional.empty();
+        }
+
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Validation {
 
     public void loginMenu() {
         System.out.print("Enter your username: ");
-        String username = scanner.next();
+        String username = validName(scanner.next());
         System.out.print("Enter your password: ");
         String password = scanner.next();
         UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
@@ -28,11 +28,11 @@ public class Validation {
 
     public void signupMenu() {
         System.out.print("Enter your firstname: ");
-        String firstname = scanner.next();
+        String firstname = validName(scanner.next());
         System.out.print("Enter your lastname: ");
-        String lastname = scanner.next();
+        String lastname = validName(scanner.next());
         System.out.print("Enter your username: ");
-        String username = scanner.next();
+        String username = checkExistUsername(validName(scanner.next()));
         System.out.print("Enter your password: ");
         String password = scanner.next();
         UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
@@ -40,19 +40,58 @@ public class Validation {
         userService.save(user);
     }
 
-    public Long validNumber(String number){
-        long value = 0;
-        try {
-            value = Long.parseLong(number);
-        }catch (Exception e){
-            System.out.println("Wrong number input.");
-            validNumber(scanner.next());
+    public Long validNumber(String number) {
+        long value;
+        while (true) {
+            try {
+                value = Long.parseLong(number);
+                if (value < 0) {
+                    System.out.println("number cant be negative");
+                    number = scanner.next();
+                    continue;
+                }
+            } catch (Exception e) {
+                System.out.print("Wrong number input. Enter again: ");
+                number = scanner.next();
+                continue;
+            }
+            break;
         }
-        if(value < 0){
-            System.out.println("number cant be negative");
-            validNumber(scanner.next());
-        }
+        System.out.println(value);
         return value;
+    }
+
+    private String validName(String name) {
+        boolean check;
+        while (true) {
+            if (name.length() < 3 || name.length() > 15) {
+                System.out.print("Name must between 3 and 15 character. Enter again: ");
+                name = scanner.next();
+                continue;
+            }
+            check = false;
+            for (Character character : name.toCharArray()) {
+                if (Character.isDigit(character)) {
+                    System.out.print("Name cant have number. Enter again: ");
+                    name = scanner.next();
+                    check = true;
+                }
+            }
+            if (!check) return name;
+        }
+    }
+
+    private String checkExistUsername(String username) {
+        while (true) {
+            UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+            Optional<User> optionalUser = userService.findUser(username);
+            if (optionalUser.isPresent()) {
+                System.out.print("This username exist. choose another one: ");
+                username = scanner.next();
+            } else {
+                return username;
+            }
+        }
     }
 
 }
