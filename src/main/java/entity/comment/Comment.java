@@ -21,11 +21,11 @@ import java.util.List;
 public class Comment extends BaseEntity {
 
     private String message;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Comment comment;
     @ManyToOne(cascade = CascadeType.ALL)
     private Tweet tweet;
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
     @ManyToOne
     private User user;

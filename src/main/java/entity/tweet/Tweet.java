@@ -26,7 +26,7 @@ public class Tweet extends BaseEntity {
     private List<Comment> comments = new ArrayList<>();
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Like> likes = new ArrayList<>();
 

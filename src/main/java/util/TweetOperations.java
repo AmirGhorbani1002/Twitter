@@ -15,6 +15,7 @@ import service.tweet.TweetService;
 import service.tweet.impl.TweetServiceImpl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class TweetOperations {
@@ -27,7 +28,7 @@ public class TweetOperations {
         tweetService.save(tweet);
     }
 
-    public void showUser(User user) {
+    public void showUserTweets(User user) {
         List<Tweet> tweets = tweetService.findUser(user.getId());
         tweets.forEach(tweet -> {
             System.out.println(tweet.getId() + "- message:  " + tweet.getMessage()
@@ -37,7 +38,32 @@ public class TweetOperations {
         });
     }
 
-    public void edit(Long id, String message) {
+    public void showUserComments(User user) {
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
+        List<Comment> comments = commentService.findUser(user.getId());
+        comments.forEach(comment -> {
+            System.out.println(comment.getId() + "- message:  " + comment.getMessage()
+                    + " number of likes: " + comment.getLikes().size());
+        });
+    }
+
+    public Boolean isTweetForUser(User user, Long id) {
+        for (Tweet tweet : user.getTweets()) {
+            if (Objects.equals(tweet.getId(), id))
+                return true;
+        }
+        return false;
+    }
+
+    public Boolean isCommentForUser(User user, Long id) {
+        for (Comment comment : user.getComments()) {
+            if (Objects.equals(comment.getId(), id))
+                return true;
+        }
+        return false;
+    }
+
+    public void editTweet(Long id, String message) {
         Optional<Tweet> optionalTweet = tweetService.findById(id);
         optionalTweet.ifPresent(tweet -> {
             tweet.setMessage(message);
@@ -45,9 +71,24 @@ public class TweetOperations {
         });
     }
 
-    public void delete(Long id) {
+    public void deleteTweet(Long id) {
         Optional<Tweet> optionalTweet = tweetService.findById(id);
         optionalTweet.ifPresent(tweetService::delete);
+    }
+
+    public void editComment(Long id, String message) {
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
+        Optional<Comment> optionalComment = commentService.findById(id);
+        optionalComment.ifPresent(comment -> {
+            comment.setMessage(message);
+            commentService.update(comment);
+        });
+    }
+
+    public void deleteComment(Long id) {
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
+        Optional<Comment> optionalComment = commentService.findById(id);
+        optionalComment.ifPresent(commentService::delete);
     }
 
     public void showOther() {
