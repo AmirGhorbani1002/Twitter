@@ -43,9 +43,12 @@ public class FollowOperations {
         System.out.println(followers);
     }
 
-    public void searchByUsername(String username) {
+    public Boolean searchByUsername(String username) {
         List<UserDTO> userDTOS = userService.searchByUsername(username);
+        if(userDTOS.size() == 0)
+            return false;
         System.out.println(userDTOS);
+        return true;
     }
 
 }

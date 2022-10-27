@@ -99,6 +99,7 @@ public class Validation {
                     System.out.print("Name cant have number. Enter again: ");
                     name = scanner.next();
                     check = true;
+                    break;
                 }
             }
             if (!check) return name;

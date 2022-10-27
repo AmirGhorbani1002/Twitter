@@ -28,6 +28,10 @@ public class LikeServiceImpl extends BaseServiceImpl<Like, LikeRepository> imple
 
     @Override
     public Optional<Like> existLike(User user, Tweet tweet) {
-        return repository.existLike(user, tweet);
+        try {
+            return repository.existLike(user, tweet);
+        } catch (Exception e){
+            return Optional.empty();
+        }
     }
 }

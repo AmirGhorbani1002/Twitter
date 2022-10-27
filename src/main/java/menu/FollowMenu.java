@@ -30,10 +30,14 @@ public class FollowMenu {
                 System.out.print("Enter name: ");
                 String username = scanner.next();
                 FollowOperations followOperations = new FollowOperations();
-                followOperations.searchByUsername(username);
-                System.out.println("Enter user id for follow or unfollow");
-                Long id = validation.validNumber(scanner.next());
-                followOperations.followOrUnfollow(user, id);
+                Boolean check = followOperations.searchByUsername(username);
+                if(check){
+                    System.out.println("Enter user id for follow or unfollow");
+                    Long id = validation.validNumber(scanner.next());
+                    followOperations.followOrUnfollow(user, id);
+                } else {
+                    System.out.println("Nothing found");
+                }
             } else if ((Objects.equals(command, "4"))) {
                 break;
             } else {
