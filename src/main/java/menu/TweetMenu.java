@@ -112,7 +112,7 @@ public class TweetMenu {
                 System.out.println("Wrong operation.");
             }
         } else {
-            System.out.println("You have not tweet with this id");
+            System.out.println("You have not comment with this id");
         }
         return false;
     }
