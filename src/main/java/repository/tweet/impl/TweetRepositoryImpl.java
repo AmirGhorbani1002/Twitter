@@ -3,7 +3,6 @@ package repository.tweet.impl;
 import base.repository.impl.BaseRepositoryImpl;
 import entity.tweet.Tweet;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import repository.tweet.TweetRepository;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class TweetRepositoryImpl extends BaseRepositoryImpl<Tweet> implements Tw
     }
 
     @Override
-    public List<Tweet> findOther(Long id) {
+    public List<Tweet> findOther() {
         String jpql = """
                 select t from Tweet t order by t.createDateTime desc
                 """;

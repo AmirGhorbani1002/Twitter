@@ -1,19 +1,19 @@
 package util;
 
-import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class Hibernate {
 
-    private static EntityManager ENTITY_MANAGER;
+    private static EntityManagerFactory ENTITY_MANAGER_FACTORY;
 
     private Hibernate() {
     }
 
-    public static EntityManager getEntityManager() {
-        if (ENTITY_MANAGER == null) {
-            ENTITY_MANAGER = Persistence.createEntityManagerFactory("twitter").createEntityManager();
+    public static EntityManagerFactory getEntityManagerFactory() {
+        if (ENTITY_MANAGER_FACTORY == null) {
+            ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("twitter");
         }
-        return ENTITY_MANAGER;
+        return ENTITY_MANAGER_FACTORY;
     }
 }

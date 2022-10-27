@@ -19,7 +19,7 @@ public class TweetServiceImpl extends BaseServiceImpl<Tweet, TweetRepository> im
     }
 
     @Override
-    public List<Tweet> findOther(Long id) {
-        return repository.findOther(id);
+    public List<Tweet> findOther() {
+        return repository.findOther();
     }
 }

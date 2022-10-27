@@ -4,7 +4,6 @@ import base.repository.impl.BaseRepositoryImpl;
 import entity.user.User;
 import entity.user.UserDTO;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import repository.user.UserRepository;
 import util.Hibernate;
 
@@ -30,7 +29,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
         String jpql = """
                 select u from User u where u.username = :username
                 """;
-        return Optional.ofNullable(Hibernate.getEntityManager().createQuery(jpql, User.class)
+        return Optional.ofNullable(Hibernate.getEntityManagerFactory().createEntityManager().createQuery(jpql, User.class)
                 .setParameter("username", username).getSingleResult());
     }
 
@@ -39,7 +38,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
         String jpql = """
                 select u from User u where u.username = :username and u.password = :password
                 """;
-        return Optional.ofNullable(Hibernate.getEntityManager().createQuery(jpql, User.class)
+        return Optional.ofNullable(Hibernate.getEntityManagerFactory().createEntityManager().createQuery(jpql, User.class)
                 .setParameter("username", username).setParameter("password", password).getSingleResult());
     }
 
@@ -49,7 +48,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User> implements User
         String jpql = """
                 select u from User u where u.username like :username
                 """;
-        List<User> users = Hibernate.getEntityManager().createQuery(jpql, User.class)
+        List<User> users = Hibernate.getEntityManagerFactory().createEntityManager().createQuery(jpql, User.class)
                 .setParameter("username", "%" + username + "%").getResultList();
         users.forEach(user -> {
             UserDTO userDTO = new UserDTO(user.getId(), user.getFirstname(), user.getLastname(), user.getUsername());

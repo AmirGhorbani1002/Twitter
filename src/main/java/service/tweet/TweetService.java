@@ -8,6 +8,6 @@ import java.util.List;
 public interface TweetService extends BaseService<Tweet>{
 
     List<Tweet> findUser(Long id);
-    List<Tweet> findOther(Long id);
+    List<Tweet> findOther();
 
 }

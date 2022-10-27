@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UserServiceImpl extends BaseServiceImpl<User, UserRepository> implements UserService {
 
 
-    private final UserRepository userRepository = new UserRepositoryImpl(Hibernate.getEntityManager());
+    private final UserRepository userRepository = new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager());
 
     public UserServiceImpl(UserRepositoryImpl repository) {
         super(repository);

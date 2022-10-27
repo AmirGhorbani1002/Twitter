@@ -15,8 +15,8 @@ import java.util.Optional;
 
 public class FollowOperations {
 
-    private final FollowService followService = new FollowServiceImpl(new FollowRepositoryImpl(Hibernate.getEntityManager()));
-    private final UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+    private final FollowService followService = new FollowServiceImpl(new FollowRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
+    private final UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
 
     public void showFollower(User user) {
         List<UserDTO> followers = followService.showFollowers(user.getId());

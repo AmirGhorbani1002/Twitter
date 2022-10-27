@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class TweetOperations {
 
-    private final TweetService tweetService = new TweetServiceImpl(new TweetRepositoryImpl(Hibernate.getEntityManager()));
+    private final TweetService tweetService = new TweetServiceImpl(new TweetRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
 
     public void add(User user, String message) {
         Tweet tweet = new Tweet(message);
@@ -50,8 +50,8 @@ public class TweetOperations {
         optionalTweet.ifPresent(tweetService::delete);
     }
 
-    public void showOther(User user) {
-        List<Tweet> tweets = tweetService.findOther(user.getId());
+    public void showOther() {
+        List<Tweet> tweets = tweetService.findOther();
         tweets.forEach(this::showTweetInformation);
     }
 
@@ -64,7 +64,7 @@ public class TweetOperations {
     }
 
     public void likeForTweet(User user, Tweet tweet) {
-        LikeService likeService = new LikeServiceImpl(new LikeRepositoryImpl(Hibernate.getEntityManager()));
+        LikeService likeService = new LikeServiceImpl(new LikeRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         Optional<Like> optionalLike = likeService.existLike(user, tweet);
         optionalLike.ifPresentOrElse(likeService::delete, () -> {
             Like like = new Like();
@@ -76,14 +76,14 @@ public class TweetOperations {
 
     public void commentForTweet(User user, Tweet tweet, String message) {
         Comment comment = new Comment(message, tweet, user);
-        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManager()));
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         commentService.save(comment);
 
     }
 
     public void likeForComment(User user, Long id) {
-        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManager()));
-        LikeService likeService = new LikeServiceImpl(new LikeRepositoryImpl(Hibernate.getEntityManager()));
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
+        LikeService likeService = new LikeServiceImpl(new LikeRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         Optional<Comment> optionalComment = commentService.findById(id);
         optionalComment.ifPresentOrElse(comment -> {
             Like like = new Like();
@@ -96,7 +96,7 @@ public class TweetOperations {
     }
 
     public void replyForComment(User user, Long id, String message) {
-        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManager()));
+        CommentService commentService = new CommentServiceImpl(new CommentRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         Optional<Comment> optionalComment = commentService.findById(id);
         optionalComment.ifPresentOrElse(comment -> {
             Comment newComment = new Comment(message, comment, user);

@@ -27,7 +27,7 @@ public class TweetMenu {
                 showMy(user);
             } else if ((Objects.equals(command, "3"))) {
                 TweetOperations tweetOperations = new TweetOperations();
-                tweetOperations.showOther(user);
+                tweetOperations.showOther();
                 System.out.print("Enter id for select tweet( 0 for exit): ");
                 Long id = validation.validNumber(scanner.next());
                 if (id == 0) return;

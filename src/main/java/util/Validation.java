@@ -19,7 +19,7 @@ public class Validation {
         String username = validName(scanner.next());
         System.out.print("Enter your password: ");
         String password = scanner.next();
-        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         Optional<User> optionalUser = userService.findUser(username, password);
         optionalUser.ifPresentOrElse(user -> {
             UserMenu userMenu = new UserMenu();
@@ -36,7 +36,7 @@ public class Validation {
         String username = checkExistUsername(validName(scanner.next()));
         System.out.print("Enter your password: ");
         String password = scanner.next();
-        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         User user = new User(firstname, lastname, username, password);
         userService.save(user);
     }
@@ -64,7 +64,7 @@ public class Validation {
 
     public void changeUsername(User user){
         String username = checkExistUsername(validName(scanner.next()));
-        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
         user.setUsername(username);
         userService.update(user);
     }
@@ -76,7 +76,7 @@ public class Validation {
                 System.out.print("Enter new password: ");
                 String newPassword = scanner.next();
                 user.setPassword(newPassword);
-                UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+                UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
                 userService.update(user);
                 break;
             } else{
@@ -108,7 +108,7 @@ public class Validation {
 
     private String checkExistUsername(String username) {
         while (true) {
-            UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+            UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManagerFactory().createEntityManager()));
             Optional<User> optionalUser = userService.findUser(username);
             if (optionalUser.isPresent()) {
                 System.out.print("This username exist. choose another one: ");

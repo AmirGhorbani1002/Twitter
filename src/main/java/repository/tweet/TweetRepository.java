@@ -9,6 +9,6 @@ public interface TweetRepository extends BaseRepository<Tweet> {
 
     List<Tweet> findUser(Long id);
 
-    List<Tweet> findOther(Long id);
+    List<Tweet> findOther();
 
 }
