@@ -6,6 +6,7 @@ import repository.user.impl.UserRepositoryImpl;
 import service.user.UserService;
 import service.user.impl.UserServiceImpl;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -59,6 +60,29 @@ public class Validation {
         }
         System.out.println(value);
         return value;
+    }
+
+    public void changeUsername(User user){
+        String username = checkExistUsername(validName(scanner.next()));
+        UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+        user.setUsername(username);
+        userService.update(user);
+    }
+
+    public void changePassword(User user){
+        while (true){
+            String oldPassword = scanner.next();
+            if(Objects.equals(user.getPassword(), oldPassword)){
+                System.out.print("Enter new password: ");
+                String newPassword = scanner.next();
+                user.setPassword(newPassword);
+                UserService userService = new UserServiceImpl(new UserRepositoryImpl(Hibernate.getEntityManager()));
+                userService.update(user);
+                break;
+            } else{
+                System.out.print("Wrong old password. Enter again: ");
+            }
+        }
     }
 
     private String validName(String name) {

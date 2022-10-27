@@ -25,7 +25,8 @@ public class UserMenu {
                 FollowMenu followMenu = new FollowMenu();
                 followMenu.showMenu(user);
             } else if (Objects.equals(command, "3")) {
-
+                InformationMenu informationMenu = new InformationMenu();
+                informationMenu.showMenu(user);
             } else if ((Objects.equals(command, "4"))) {
                 break;
             } else {
